@@ -60,7 +60,7 @@ function readLimits(binary){
         finish(null,m.result);
       }
     });
-    send({id:1,method:'initialize',params:{clientInfo:{name:'danilfg_usage_monitor',title:'Codex Usage Monitor VS Code',version:'0.1.2'}}});
+    send({id:1,method:'initialize',params:{clientInfo:{name:'danilfg_usage_monitor',title:'Codex Usage Monitor VS Code',version:'0.1.3'}}});
   });
   return {promise,cancel:()=>cancel?.()};
 }

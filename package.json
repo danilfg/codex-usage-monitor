@@ -2,7 +2,7 @@
   "name": "codex-usage-monitor-vscode",
   "displayName": "Codex Usage Monitor VS Code",
   "description": "Local Codex quota monitor for VS Code.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "danilfg",
   "engines": {
     "vscode": "^1.90.0"
