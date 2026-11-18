@@ -11,6 +11,20 @@ function executable(extensionPath){
   const arch=({arm64:'aarch64',x64:'x86_64'})[process.arch];
   const candidates=[path.join('bin',process.platform+'-'+process.arch,name),path.join('bin',name),path.join('resources',name)];
   if(target&&arch)candidates.push(path.join('vendor',arch+'-'+target,'codex',name),path.join('bin',arch+'-'+target,name));
+  // Recent official builds place the executable in a versioned platform bundle.
+  try {
+    for (const entry of fs.readdirSync(path.join(root,'bin'),{withFileTypes:true})) {
+      if (!entry.isDirectory()) continue;
+      const dir=path.join('bin',entry.name);
+      try {
+        const manifest=fs.realpathSync(path.join(root,dir,'codex-package.json'));
+        if (!manifest.startsWith(root+path.sep)) continue;
+        const pkg=JSON.parse(fs.readFileSync(manifest,'utf8'));
+        if (pkg.target!==arch+'-'+target || typeof pkg.entrypoint!=='string') continue;
+        candidates.unshift(path.join(dir,pkg.entrypoint),path.join(dir,path.basename(pkg.entrypoint)),path.join(dir,name));
+      } catch {}
+    }
+  } catch {}
   for(const relative of candidates){
     try{
       const p=fs.realpathSync(path.join(root,relative));
