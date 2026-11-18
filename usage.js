@@ -25,3 +25,12 @@ function tooltip(windows,now=new Date(),timeZone){
   return ['Codex usage — remaining limits',...windows.flatMap(w=>['', (w.label==='5h'?'5-hour limit':w.label==='7d'?'Weekly limit':w.label)+': '+w.remaining+'% remaining',bar(w.remaining),'Resets: '+resetLabel(w.reset,now,timeZone)]),'','Updated: '+now.toLocaleTimeString(),'Click to refresh'].join('\n');
 }
 module.exports={windows,bar,resetLabel,tooltip};
+
+function detailRows(windows,now=new Date(),timeZone){
+  return windows.map(w=>({
+    label:(w.label==='5h'?'5-hour limit':w.label==='7d'?'Weekly limit':w.label)+' — '+w.remaining+'%',
+    description:bar(w.remaining),
+    detail:'Resets: '+resetLabel(w.reset,now,timeZone)
+  }));
+}
+module.exports.detailRows=detailRows;

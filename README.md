@@ -16,15 +16,15 @@ Requires the official OpenAI Codex VS Code extension (`openai.chatgpt`) and an e
 
 *Screenshot from v0.1.0; v0.1.1 also displays the time zone and countdown.*
 
-Hover over the indicator to see the full reset date, local time zone and remaining time for each quota window.
+Click the indicator to open the native VS Code details popup (Quick Pick). It shows full reset dates, local time zones, remaining time and quota bars. Click outside the popup or press Escape to dismiss it. The screenshot above shows the older hover interface.
 
 ## Install locally
 
-Clone this repository, open it in VS Code, and press F5 to launch the Extension Development Host (the official Codex extension must be installed there too). To package: `npx --yes @vscode/vsce package --no-dependencies`, then `code --install-extension codex-usage-monitor-vscode-0.1.1.vsix`. Packaging downloads a build tool; the extension itself has no runtime dependencies.
+Clone this repository, open it in VS Code, and press F5 to launch the Extension Development Host (the official Codex extension must be installed there too). To package: `npx --yes @vscode/vsce package --no-dependencies`, then `code --install-extension codex-usage-monitor-vscode-0.1.2.vsix`. Packaging downloads a build tool; the extension itself has no runtime dependencies.
 
 ## Usage
 
-The status bar displays remaining percentages, full reset dates and times in your local time zone, and a countdown in the tooltip. Click to refresh. Polling defaults to 60 seconds. Missing or stale data is shown explicitly, not as 100%. Settings: `codexUsageMonitor.refreshSeconds` and `codexUsageMonitor.showBars`.
+The status bar displays remaining percentages. Click to open details with full reset dates, local time zone and countdown. Use the refresh button in the popup to refresh. Polling defaults to 60 seconds. Missing or stale data is shown explicitly, not as 100%. Settings: `codexUsageMonitor.refreshSeconds` and `codexUsageMonitor.showBars`.
 
 ## Security
 
