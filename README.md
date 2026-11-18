@@ -12,6 +12,10 @@ Requires the official OpenAI Codex VS Code extension (`openai.chatgpt`) and an e
 
 ### Hover details
 
+![Codex quota reset dates in the VS Code tooltip](docs/images/hover-details.png)
+
+*Screenshot from v0.1.0; v0.1.1 also displays the time zone and countdown.*
+
 Hover over the indicator to see the full reset date, local time zone and remaining time for each quota window.
 
 ## Install locally
