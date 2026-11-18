@@ -4,6 +4,16 @@ Independent, local-only status bar monitor for OpenAI Codex, by danilfg. Not aff
 
 Requires the official OpenAI Codex VS Code extension (`openai.chatgpt`) and an existing ChatGPT sign-in. No separate login is needed if the local app server can reuse that sign-in.
 
+## Screenshots
+
+### Status bar
+
+![Codex usage in the VS Code status bar](docs/images/status-bar.png)
+
+### Hover details
+
+Hover over the indicator to see the full reset date, local time zone and remaining time for each quota window.
+
 ## Install locally
 
 Clone this repository, open it in VS Code, and press F5 to launch the Extension Development Host (the official Codex extension must be installed there too). To package: `npx --yes @vscode/vsce package --no-dependencies`, then `code --install-extension codex-usage-monitor-vscode-0.1.1.vsix`. Packaging downloads a build tool; the extension itself has no runtime dependencies.
