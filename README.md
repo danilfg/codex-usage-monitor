@@ -6,11 +6,11 @@ Requires the official OpenAI Codex VS Code extension (`openai.chatgpt`) and an e
 
 ## Install locally
 
-Clone this repository, open it in VS Code, and press F5 to launch the Extension Development Host (the official Codex extension must be installed there too). To package: `npx --yes @vscode/vsce package --no-dependencies`, then `code --install-extension codex-usage-monitor-vscode-0.1.0.vsix`. Packaging downloads a build tool; the extension itself has no runtime dependencies.
+Clone this repository, open it in VS Code, and press F5 to launch the Extension Development Host (the official Codex extension must be installed there too). To package: `npx --yes @vscode/vsce package --no-dependencies`, then `code --install-extension codex-usage-monitor-vscode-0.1.1.vsix`. Packaging downloads a build tool; the extension itself has no runtime dependencies.
 
 ## Usage
 
-The status bar displays remaining percentages and reset times in the tooltip. Click to refresh. Polling defaults to 60 seconds. Missing or stale data is shown explicitly, not as 100%. Settings: `codexUsageMonitor.refreshSeconds` and `codexUsageMonitor.showBars`.
+The status bar displays remaining percentages, full reset dates and times in your local time zone, and a countdown in the tooltip. Click to refresh. Polling defaults to 60 seconds. Missing or stale data is shown explicitly, not as 100%. Settings: `codexUsageMonitor.refreshSeconds` and `codexUsageMonitor.showBars`.
 
 ## Security
 

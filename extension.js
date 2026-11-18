@@ -1,7 +1,7 @@
 'use strict';
 const vscode=require('vscode');
 const {executable,readLimits}=require('./client');
-const {windows,bar}=require('./usage');
+const {windows,bar,tooltip}=require('./usage');
 let stop;
 function activate(context){
   const status=vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right,100);
@@ -23,7 +23,7 @@ function activate(context){
       const lowest=Math.min(...result.map(w=>w.remaining));
       status.backgroundColor=lowest<=10?new vscode.ThemeColor('statusBarItem.errorBackground'):lowest<=25?new vscode.ThemeColor('statusBarItem.warningBackground'):undefined;
       status.text='$(dashboard) Codex '+result.map(w=>w.label+' '+(config().get('showBars',true)?bar(w.remaining)+' ':'')+w.remaining+'%').join(' | ');
-      status.tooltip=['Remaining Codex quota',...result.map(w=>w.label+': '+w.remaining+'% remaining'+(w.reset&&Number.isFinite(w.reset.getTime())?' · resets '+w.reset.toLocaleString():'')),'Updated: '+new Date().toLocaleTimeString(),'Click to refresh'].join('\n');
+      status.tooltip=tooltip(result);
     }catch{
       if(disposed)return;
       status.backgroundColor=undefined;status.text='$(dashboard) Codex N/A';status.tooltip='Usage unavailable. Check official Codex installation and ChatGPT sign-in. Click to retry.';
