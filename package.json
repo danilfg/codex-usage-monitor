@@ -1,0 +1,52 @@
+{
+  "name": "codex-usage-monitor-vscode",
+  "displayName": "Codex Usage Monitor VS Code",
+  "description": "Local Codex quota monitor for VS Code.",
+  "version": "0.1.0",
+  "publisher": "danilfg",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danilfg/codex-usage-monitor.git"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "codexUsageMonitor.refresh",
+        "title": "Codex Usage Monitor: Refresh"
+      }
+    ],
+    "configuration": {
+      "title": "Codex Usage Monitor VS Code",
+      "properties": {
+        "codexUsageMonitor.refreshSeconds": {
+          "type": "integer",
+          "default": 60,
+          "minimum": 30,
+          "maximum": 600,
+          "scope": "application"
+        },
+        "codexUsageMonitor.showBars": {
+          "type": "boolean",
+          "default": true,
+          "scope": "application"
+        }
+      }
+    }
+  }
+}
