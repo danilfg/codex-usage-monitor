@@ -2,13 +2,21 @@
 const vscode=require('vscode');
 const {executable,readLimits}=require('./client');
 const {windows,bar}=require('./usage');
-const {quotaColor,renderCard,documentHtml}=require('./details');
+const {renderCard,documentHtml,hoverMarkdown}=require('./details');
 let stop;
 function activate(context){
   const status=vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right,100);
   status.name='Codex Usage Monitor VS Code';status.command='codexUsageMonitor.showDetails';status.text='$(dashboard) Codex …';status.show();
   let pending,timer,disposed=false,lastAttempt=0,latest=[],updated,panel,ready=false;
-  status.tooltip=undefined;
+  status.backgroundColor=undefined;
+  status.color=undefined;
+  function renderHover(){
+    const hover=new vscode.MarkdownString(hoverMarkdown(latest,updated));
+    hover.isTrusted=false;
+    hover.supportHtml=false;
+    status.tooltip=hover;
+  }
+  renderHover();
   function renderDetails(){
     if(panel&&ready)void panel.webview.postMessage({type:'render',html:renderCard(latest,updated)});
   }
@@ -43,13 +51,11 @@ function activate(context){
       const result=windows(await pending.promise);
       if(disposed)return;
       if(!result.length)throw new Error('No usage windows');
-      const lowest=Math.min(...result.map(w=>w.remaining));
-      status.backgroundColor=quotaColor(lowest)==='red'?new vscode.ThemeColor('statusBarItem.errorBackground'):quotaColor(lowest)==='amber'?new vscode.ThemeColor('statusBarItem.warningBackground'):undefined;
       status.text='$(dashboard) Codex '+result.map(w=>w.label+' '+(config().get('showBars',true)?bar(w.remaining)+' ':'')+w.remaining+'%').join(' | ');
-      latest=result;updated=new Date();renderDetails();
+      latest=result;updated=new Date();renderHover();renderDetails();
     }catch{
       if(disposed)return;
-      status.backgroundColor=undefined;status.text='$(dashboard) Codex N/A';latest=[];updated=undefined;renderDetails();
+      status.backgroundColor=undefined;status.text='$(dashboard) Codex N/A';latest=[];updated=undefined;renderHover();renderDetails();
     }finally{pending=undefined;schedule();}
   }
   stop=()=>{disposed=true;clearTimeout(timer);pending?.cancel();panel?.dispose();status.dispose();};
